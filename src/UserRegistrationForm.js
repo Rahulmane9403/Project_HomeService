@@ -1,5 +1,85 @@
+// import React, { useState } from 'react';
+// import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+// import { useNavigate } from 'react-router-dom';
+
+// function RegistrationForm() {
+//   const [step, setStep] = useState(1);
+//   const [role, setRole] = useState('');
+//   const [formData, setFormData] = useState({
+//     name: '',
+//     email: '',
+//     phone: '',
+//     password: '',
+//     city: '',
+//     state: '',
+//     pincode: '',
+//   });
+//   const navigate = useNavigate();
+
+//   const handleRoleSelection = (selectedRole) => {
+//     setRole(selectedRole);
+//     if (selectedRole === 'Worker') {
+//       navigate('/worker-register'); // Navigate to Worker Registration
+//     } else {
+//       setStep(2); // Proceed to User Registration
+//     }
+//   };
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log({ role, ...formData });
+//   };
+
+//   return (
+//     <Container>
+//       <Row className="justify-content-md-center">
+//         <Col md="6">
+//           <h2>Register</h2>
+//           <br />
+//           {step === 1 && (
+//             <div>
+//               <h3>Register as:</h3>
+//               <Button variant="primary" className="me-2" onClick={() => handleRoleSelection('User')}>
+//                 User
+//               </Button>
+//               <Button variant="secondary" onClick={() => handleRoleSelection('Worker')}>
+//                 Worker
+//               </Button>
+//             </div>
+//           )}
+//           {step === 2 && (
+//             <Form onSubmit={handleSubmit}>
+//               <Form.Group controlId="formName">
+//                 <Form.Label>Name</Form.Label>
+//                 <Form.Control
+//                   type="text"
+//                   placeholder="Enter your name"
+//                   name="name"
+//                   value={formData.name}
+//                   onChange={handleChange}
+//                 />
+//               </Form.Group>
+//               {/* Add other form fields here */}
+//               <Button variant="primary" type="submit">
+//                 Register
+//               </Button>
+//             </Form>
+//           )}
+//         </Col>
+//       </Row>
+//     </Container>
+//   );
+// }
+
+// export default RegistrationForm;
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function RegistrationForm() {
   const [step, setStep] = useState(1);
@@ -11,39 +91,46 @@ function RegistrationForm() {
     password: '',
     city: '',
     state: '',
-    pincode: ''
+    pincode: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+  const navigate = useNavigate();
 
   const handleRoleSelection = (selectedRole) => {
     setRole(selectedRole);
-    setStep(2);
+    if (selectedRole === 'Worker') {
+      navigate('/worker-register'); // Navigate to Worker Registration
+    } else {
+      setStep(2); // Proceed to User Registration
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log({ role, ...formData });
+    // You can add the logic to handle registration or API calls here
   };
 
   return (
-    <Container> 
+    <Container>
       <Row className="justify-content-md-center">
         <Col md="6">
           <h2>Register</h2>
-          <br></br>
+          <br />
           {step === 1 && (
             <div>
               <h3>Register as:</h3>
-              <Button variant="primary" className="me-2" onClick={() => handleRoleSelection('User')}>User</Button>
-              <Button variant="secondary" onClick={() => handleRoleSelection('Worker')}>Worker</Button>
+              <Button variant="primary" className="me-2" onClick={() => handleRoleSelection('User')}>
+                User
+              </Button>
+              <Button variant="secondary" onClick={() => handleRoleSelection('Worker')}>
+                Worker
+              </Button>
             </div>
           )}
           {step === 2 && (
@@ -58,17 +145,6 @@ function RegistrationForm() {
                   onChange={handleChange}
                 />
               </Form.Group>
-               {/* <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </Form.Group> */}
 
               <Form.Group controlId="formEmail">
                 <Form.Label>Email</Form.Label>
